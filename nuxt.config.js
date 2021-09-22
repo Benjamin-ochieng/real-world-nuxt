@@ -1,3 +1,4 @@
+import EventService from './services/EventService.js'
 const pkg = require('./package')
 
 module.exports = {
@@ -64,6 +65,13 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  generate: {
+    routes: () => {
+      return EventService.getEvents().then(({ data }) => {
+        return data.map((event) => `/event/${event.id}`)
+      })
     }
   }
 }
